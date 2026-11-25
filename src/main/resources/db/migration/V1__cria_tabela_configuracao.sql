@@ -1,0 +1,5 @@
+CREATE TABLE configuracao (
+    chave VARCHAR(100) PRIMARY KEY ,
+    valor VARCHAR(255) NOT NULL ,
+    atualizado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

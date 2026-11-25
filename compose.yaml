@@ -1,9 +1,31 @@
+name: montai
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:17'
     environment:
-      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_DB=montai'
       - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_USER=montai'
     ports:
-      - '5432'
+      - '5433:5432'
+    volumes:
+      - 'postgres-dados:/var/lib/postgresql/data'
+  minio:
+    image: 'cgr.dev/chainguard/minio:latest'
+    command: 'server /data --console-address ":9001"'
+    environment:
+      - 'MINIO_ROOT_USER=montai'
+      - 'MINIO_ROOT_PASSWORD=montai123'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - 'minio-dados:/data'
+  mailpit:
+    image: 'axllent/mailpit:v1.29'
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+volumes:
+  postgres-dados:
+  minio-dados:

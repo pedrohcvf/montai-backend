@@ -5,38 +5,38 @@ B03,Configurar Flyway e a primeira migration,0,A fazer,infra,RNF08,P,v0.1
 B04,GitHub Actions: build e testes a cada push e PR,0,A fazer,infra,RNF10,P,v0.1
 B05,Teste de fronteiras entre módulos com Spring Modulith,0,A fazer,infra,RNF07,P,v0.1
 B06,Swagger UI com springdoc-openapi,0,A fazer,infra,RNF11,P,v0.1
-B07,"Tipo Money em centavos, Problem Details e handler global de erros",0,A fazer,shared,"RNF04, RNF13",M,v0.1
-B08,Validador de CPF e CNPJ (dígito verificador) com testes,0,A fazer,shared,RN01,P,v0.1
-B09,Cadastro PF com CPF cifrado + hash e aceite dos termos,0,A fazer,identity,"RF01, RNF03",M,v0.1
-B11,Confirmação de e-mail com token de 24h (Mailpit),0,A fazer,identity,"RF03, RN02",M,v0.1
-B12,Login com JWT de 15 min e refresh token de 7 dias,0,A fazer,identity,"RF04, RNF01",G,v0.1
-B13,"Refresh, logout e /me",0,A fazer,identity,"RF05, RF06",M,v0.1
-B14,Papéis e autorização por dono do recurso (anti-IDOR),0,A fazer,identity,"RNF02, RN21",M,v0.1
+B07,"Tipo Money em centavos, Problem Details e handler global de erros",0,A fazer,compartilhado,"RNF04, RNF13",M,v0.1
+B08,Validador de CPF e CNPJ (dígito verificador) com testes,0,A fazer,compartilhado,RN01,P,v0.1
+B09,Cadastro PF com CPF cifrado + hash e aceite dos termos,0,A fazer,identidade,"RF01, RNF03",M,v0.1
+B11,Confirmação de e-mail com token de 24h (Mailpit),0,A fazer,identidade,"RF03, RN02",M,v0.1
+B12,Login com JWT de 15 min e refresh token de 7 dias,0,A fazer,identidade,"RF04, RNF01",G,v0.1
+B13,"Refresh, logout e /me",0,A fazer,identidade,"RF05, RF06",M,v0.1
+B14,Papéis e autorização por dono do recurso (anti-IDOR),0,A fazer,identidade,"RNF02, RN21",M,v0.1
 B16,README inicial e ADR-001 (monólito modular),0,A fazer,docs,RNF11,P,v0.1
-B17,Migration das 8 categorias e seus atributos,1,A fazer,catalog,RF08,M,v0.1
-B18,Entidade produto com specs em JSONB e índice GIN,1,A fazer,catalog,RF11,M,v0.1
-B19,Validador de specs contra atributo_categoria,1,A fazer,catalog,RF11,G,v0.1
-B20,Chave normalizada única por categoria,1,A fazer,catalog,RN07,P,v0.1
-B22,Busca de produtos por texto e categoria,1,A fazer,catalog,RF09,M,v0.1
-B24,Seed JSON com ~100 produtos populares,1,A fazer,catalog,RF15,M,v0.1
-B26,"Criar e editar anúncio com regras de PF (limite só avisa, sem sugerir Loja)",1,A fazer,listing,"RF16, RF20, RN03, RN04",G,v0.1
-B27,"Integração ViaCEP (cidade, bairro, UF)",1,A fazer,listing,"RF17, RN11",P,v0.1
-B28,Upload de fotos para o MinIO,1,A fazer,listing,"RF18, RN10",M,v0.1
-B30,"Busca pública com filtros por specs, paginação e ordenação (sem filtro por tipo de vendedor)",1,A fazer,listing,"RF21, RNF14",G,v0.1
-B31,Detalhe do anúncio sem endereço exato,1,A fazer,listing,RF22,P,v0.1
-B46,Condição em escala com descrição (Novo lacrado até Com defeito),1,A fazer,listing,"RF39, RN22",P,v0.1
-B47,"Campos de caixa, acessórios inclusos, nota fiscal e garantia restante",1,A fazer,listing,RF40,P,v0.1
-B48,"Prévia ""você recebe"" (preço menos comissão) ao digitar o preço",1,A fazer,listing,"RF41, RN24",P,v0.1
-B32,"PaymentGateway, FakePaymentGateway e endpoint de simulação",1,A fazer,payment,"RF31, RF32, RN14",M,v0.1
-B33,Cobrança com chave de idempotência,1,A fazer,payment,RNF05,M,v0.1
-B34,Ledger RETIDO / LIBERADO / ESTORNADO com comissão,1,A fazer,payment,"RF33, RF34, RN15, RN19, RN20",M,v0.1
-B35,Pedido com padrão State e historico_pedido,1,A fazer,ordering,"RF23, RF30, RN12",G,v0.1
-B36,Reserva de 10 min com lock contra compra concorrente,1,A fazer,ordering,"RN13, RNF05, RNF06",G,v0.1
-B37,"Código de 6 dígitos cifrado (AES, chave própria), exibido só ao comprador, e limite de 5 tentativas",1,A fazer,ordering,"RF24, RF25, RN16",M,v0.1
-B38,Cancelamento pelo comprador antes do código,1,A fazer,ordering,"RF26, RN17",P,v0.1
-B39,Job: cancelar pedido não pago após 10 min,1,A fazer,ordering,"RF27, RN13",P,v0.1
-B40,Minhas compras e minhas vendas,1,A fazer,ordering,RF29,P,v0.1
-B52,Mensagens do pedido com bloqueio de contato externo,1,A fazer,ordering,"RF49, RN28",M,v0.1
+B17,Migration das 8 categorias e seus atributos,1,A fazer,catalogo,RF08,M,v0.1
+B18,Entidade produto com specs em JSONB e índice GIN,1,A fazer,catalogo,RF11,M,v0.1
+B19,Validador de specs contra atributo_categoria,1,A fazer,catalogo,RF11,G,v0.1
+B20,Chave normalizada única por categoria,1,A fazer,catalogo,RN07,P,v0.1
+B22,Busca de produtos por texto e categoria,1,A fazer,catalogo,RF09,M,v0.1
+B24,Seed JSON com ~100 produtos populares,1,A fazer,catalogo,RF15,M,v0.1
+B26,"Criar e editar anúncio com regras de PF (limite só avisa, sem sugerir Loja)",1,A fazer,anuncio,"RF16, RF20, RN03, RN04",G,v0.1
+B27,"Integração ViaCEP (cidade, bairro, UF)",1,A fazer,anuncio,"RF17, RN11",P,v0.1
+B28,Upload de fotos para o MinIO,1,A fazer,anuncio,"RF18, RN10",M,v0.1
+B30,"Busca pública com filtros por specs, paginação e ordenação (sem filtro por tipo de vendedor)",1,A fazer,anuncio,"RF21, RNF14",G,v0.1
+B31,Detalhe do anúncio sem endereço exato,1,A fazer,anuncio,RF22,P,v0.1
+B46,Condição em escala com descrição (Novo lacrado até Com defeito),1,A fazer,anuncio,"RF39, RN22",P,v0.1
+B47,"Campos de caixa, acessórios inclusos, nota fiscal e garantia restante",1,A fazer,anuncio,RF40,P,v0.1
+B48,"Prévia ""você recebe"" (preço menos comissão) ao digitar o preço",1,A fazer,anuncio,"RF41, RN24",P,v0.1
+B32,"PaymentGateway, FakePaymentGateway e endpoint de simulação",1,A fazer,pagamento,"RF31, RF32, RN14",M,v0.1
+B33,Cobrança com chave de idempotência,1,A fazer,pagamento,RNF05,M,v0.1
+B34,Ledger RETIDO / LIBERADO / ESTORNADO com comissão,1,A fazer,pagamento,"RF33, RF34, RN15, RN19, RN20",M,v0.1
+B35,Pedido com padrão State e historico_pedido,1,A fazer,pedido,"RF23, RF30, RN12",G,v0.1
+B36,Reserva de 10 min com lock contra compra concorrente,1,A fazer,pedido,"RN13, RNF05, RNF06",G,v0.1
+B37,"Código de 6 dígitos cifrado (AES, chave própria), exibido só ao comprador, e limite de 5 tentativas",1,A fazer,pedido,"RF24, RF25, RN16",M,v0.1
+B38,Cancelamento pelo comprador antes do código,1,A fazer,pedido,"RF26, RN17",P,v0.1
+B39,Job: cancelar pedido não pago após 10 min,1,A fazer,pedido,"RF27, RN13",P,v0.1
+B40,Minhas compras e minhas vendas,1,A fazer,pedido,RF29,P,v0.1
+B52,Mensagens do pedido com bloqueio de contato externo,1,A fazer,pedido,"RF49, RN28",M,v0.1
 B44,Testes de integração do fluxo de compra com Testcontainers,1,A fazer,testes,RNF09,G,v0.1
 B45,ADRs 002 a 005,1,A fazer,docs,RNF11,P,v0.1
 B54,"Projeto React + TypeScript + Vite, cliente da API com refresh token e CORS no backend",2,A fazer,web,RF50,M,v0.2
@@ -47,19 +47,19 @@ B58,"Compra com pagamento simulado, meus pedidos com código e mensagens",2,A fa
 B59,Conta de demonstração e dados de exemplo,2,A fazer,web,RF51,P,v0.2
 B60,"Deploy gratuito de API, banco, arquivos e front + ADR-006 + aviso de ambiente de teste e de não usar CPF real (indicar conta demo)",2,A fazer,infra,"RNF15, RNF03",G,v0.2
 B61,"README com link do site e GIF do fluxo; atualizar currículo e LinkedIn",2,A fazer,docs,RNF11,P,v0.2
-B10,Cadastro de Loja em status pendente,3,A fazer,identity,RF02,P,v0.3
-B15,Admin inicial criado via configuração,3,A fazer,identity,RF38,P,v0.3
-B25,Aprovação e rejeição de loja pelo moderador,3,A fazer,identity,"RF07, RN05",P,v0.3
-B50,Endpoint de pendências para começar a vender,3,A fazer,identity,RF43,P,v0.3
-B21,CRUD de produtos (moderador/admin) com histórico de revisões,3,A fazer,catalog,"RF10, RF14",M,v0.3
-B23,Sugestão de produto pelo vendedor com aprovação/rejeição,3,A fazer,catalog,"RF12, RF13, RN08",M,v0.3
-B51,Part number no produto e busca por ele ao anunciar,3,A fazer,catalog,RF44,P,v0.3
-B65,Anúncio de loja com estoque e filtro por tipo de vendedor na busca,3,A fazer,listing,"RN05, RF21",M,v0.3
-B29,Publicar rascunho quando o produto for aprovado (evento),3,A fazer,listing,"RF19, RN09",P,v0.3
-B49,"Perguntas e respostas públicas no anúncio, bloqueando contato externo",3,A fazer,listing,"RF42, RN23",M,v0.3
-B53,Jobs: aviso no 5º dia e reembolso no 7º sem retirada,3,A fazer,ordering,"RF28, RN18",M,v0.3
-B41,E-mails dos eventos do sistema (inclui código de confirmação),3,A fazer,notification,RF35,M,v0.3
-B42,Minhas notificações (lidas e não lidas),3,A fazer,notification,RF36,P,v0.3
+B10,Cadastro de Loja em status pendente,3,A fazer,identidade,RF02,P,v0.3
+B15,Admin inicial criado via configuração,3,A fazer,identidade,RF38,P,v0.3
+B25,Aprovação e rejeição de loja pelo moderador,3,A fazer,identidade,"RF07, RN05",P,v0.3
+B50,Endpoint de pendências para começar a vender,3,A fazer,identidade,RF43,P,v0.3
+B21,CRUD de produtos (moderador/admin) com histórico de revisões,3,A fazer,catalogo,"RF10, RF14",M,v0.3
+B23,Sugestão de produto pelo vendedor com aprovação/rejeição,3,A fazer,catalogo,"RF12, RF13, RN08",M,v0.3
+B51,Part number no produto e busca por ele ao anunciar,3,A fazer,catalogo,RF44,P,v0.3
+B65,Anúncio de loja com estoque e filtro por tipo de vendedor na busca,3,A fazer,anuncio,"RN05, RF21",M,v0.3
+B29,Publicar rascunho quando o produto for aprovado (evento),3,A fazer,anuncio,"RF19, RN09",P,v0.3
+B49,"Perguntas e respostas públicas no anúncio, bloqueando contato externo",3,A fazer,anuncio,"RF42, RN23",M,v0.3
+B53,Jobs: aviso no 5º dia e reembolso no 7º sem retirada,3,A fazer,pedido,"RF28, RN18",M,v0.3
+B41,E-mails dos eventos do sistema (inclui código de confirmação),3,A fazer,notificacao,RF35,M,v0.3
+B42,Minhas notificações (lidas e não lidas),3,A fazer,notificacao,RF36,P,v0.3
 B43,"Configurações do admin: prazos, comissão, limites",3,A fazer,admin,RF37,P,v0.3
 B62,"Telas de loja, moderação e perguntas no front",3,A fazer,web,RF50,G,v0.3
 B63,Conversar com 10 a 15 vendedores de peças em Recife e registrar em docs/validacao.md (pode começar já),3,A fazer,produto,—,M,v0.3

@@ -6,8 +6,8 @@ B04,GitHub Actions: build e testes a cada push e PR,0,A fazer,infra,RNF10,P,v0.1
 B05,Teste de fronteiras entre módulos com Spring Modulith,0,A fazer,infra,RNF07,P,v0.1
 B06,Swagger UI com springdoc-openapi,0,A fazer,infra,RNF11,P,v0.1
 B07,"Tipo Dinheiro com BigDecimal, Problem Details e handler global de erros",0,A fazer,compartilhado,"RNF04, RNF13",M,v0.1
-B08,Validador de CPF e CNPJ (dígito verificador) com testes,0,A fazer,compartilhado,RN01,P,v0.1
-B09,Cadastro PF com CPF cifrado + hash e aceite dos termos,0,A fazer,identidade,"RF01, RNF03",M,v0.1
+B08,Juntado ao B09 (CPF validado com @CPF do Hibernate Validator),0,Feito,compartilhado,RN01,P,v0.1
+B09,"Cadastro PF com CPF validado (@CPF), cifrado + hash e aceite dos termos",0,A fazer,identidade,"RF01, RNF03, RN01",M,v0.1
 B11,Confirmação de e-mail com token de 24h (Mailpit),0,A fazer,identidade,"RF03, RN02",M,v0.1
 B12,Login com JWT de 15 min e refresh token de 7 dias,0,A fazer,identidade,"RF04, RNF01",G,v0.1
 B13,"Refresh, logout e /me",0,A fazer,identidade,"RF05, RF06",M,v0.1
@@ -47,7 +47,7 @@ B58,"Compra com pagamento simulado, meus pedidos com código e mensagens",2,A fa
 B59,Conta de demonstração e dados de exemplo,2,A fazer,web,RF51,P,v0.2
 B60,"Deploy gratuito de API, banco, arquivos e front + ADR-006 + aviso de ambiente de teste e de não usar CPF real (indicar conta demo)",2,A fazer,infra,"RNF15, RNF03",G,v0.2
 B61,"README com link do site e GIF do fluxo; atualizar currículo e LinkedIn",2,A fazer,docs,RNF11,P,v0.2
-B10,Cadastro de Loja em status pendente,3,A fazer,identidade,RF02,P,v0.3
+B10,"Cadastro de Loja em status pendente, com validador de CNPJ (inclui o alfanumérico)",3,A fazer,identidade,"RF02, RN01",M,v0.3
 B15,Admin inicial criado via configuração,3,A fazer,identidade,RF38,P,v0.3
 B25,Aprovação e rejeição de loja pelo moderador,3,A fazer,identidade,"RF07, RN05",P,v0.3
 B50,Endpoint de pendências para começar a vender,3,A fazer,identidade,RF43,P,v0.3

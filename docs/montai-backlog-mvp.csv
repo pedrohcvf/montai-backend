@@ -5,7 +5,7 @@ B03,Configurar Flyway e a primeira migration,0,A fazer,infra,RNF08,P,v0.1
 B04,GitHub Actions: build e testes a cada push e PR,0,A fazer,infra,RNF10,P,v0.1
 B05,Teste de fronteiras entre módulos com Spring Modulith,0,A fazer,infra,RNF07,P,v0.1
 B06,Swagger UI com springdoc-openapi,0,A fazer,infra,RNF11,P,v0.1
-B07,"Tipo Money em centavos, Problem Details e handler global de erros",0,A fazer,compartilhado,"RNF04, RNF13",M,v0.1
+B07,"Tipo Dinheiro com BigDecimal, Problem Details e handler global de erros",0,A fazer,compartilhado,"RNF04, RNF13",M,v0.1
 B08,Validador de CPF e CNPJ (dígito verificador) com testes,0,A fazer,compartilhado,RN01,P,v0.1
 B09,Cadastro PF com CPF cifrado + hash e aceite dos termos,0,A fazer,identidade,"RF01, RNF03",M,v0.1
 B11,Confirmação de e-mail com token de 24h (Mailpit),0,A fazer,identidade,"RF03, RN02",M,v0.1

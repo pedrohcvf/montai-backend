@@ -1,4 +1,4 @@
-package com.pedrohcvf.montai.backend.compartilhado;
+package com.pedrohcvf.montai.backend.compartilhado.dinheiro;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

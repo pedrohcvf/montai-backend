@@ -1,5 +1,6 @@
 package com.pedrohcvf.montai.backend.compartilhado;
 
+import com.pedrohcvf.montai.backend.compartilhado.dinheiro.Dinheiro;
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;

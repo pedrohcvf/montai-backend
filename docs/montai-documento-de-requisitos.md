@@ -1,6 +1,6 @@
 # Montaí — Documento de Requisitos (MVP)
 
-Versão 2.2 de 25/11/2026 · Autor: Pedro Carvalho
+Versão 2.4 de 25/11/2026 · Autor: Pedro Carvalho
 
 ## Visão geral
 
@@ -125,13 +125,13 @@ Valores marcados como configuráveis são padrões que o admin pode alterar (at�
 | RN16 | O código de confirmação tem 6 dígitos e aceita no máximo 5 tentativas erradas; depois disso, só o comprador gera um novo, também guardado cifrado, e o contador de tentativas volta a zero |
 | RN17 | O comprador pode cancelar e ser reembolsado enquanto não passar o código |
 | RN18 | Sem retirada em 7 dias (configurável), comprador e vendedor são avisados no 5º dia e o pedido é reembolsado no 7º |
-| RN19 | Na conclusão, o valor é liberado ao vendedor descontada a comissão de 14% no MVP (configurável) |
+| RN19 | Na conclusão, o valor é liberado ao vendedor descontada a comissão de 12% no MVP (configurável) |
 | RN20 | Toda movimentação de valor gera lançamento no ledger; lançamentos nunca são apagados |
 | RN21 | Usuário só acessa e altera os próprios anúncios, pedidos e notificações |
 | RN22 | Cada nível de condição tem descrição fixa exibida ao vendedor e ao comprador; PF não usa Novo lacrado nem Novo aberto (RN03) |
 | RN23 | Perguntas e respostas no anúncio são públicas; contato externo (telefone, e-mail, links) é bloqueado no texto |
 | RN24 | O valor que o vendedor recebe = preço − comissão; exibido antes de publicar |
-| RN25 | Comissão decrescente por reputação: 14% até 9 vendas concluídas, 12% de 10 a 49, 10% a partir de 50 (faixas sugeridas e configuráveis) — Fase 6 |
+| RN25 | Comissão decrescente por reputação: 12% até 9 vendas concluídas, 11% de 10 a 49, 10% a partir de 50 (faixas sugeridas e configuráveis) — Fase 6 |
 | RN26 | Quem quebra regra (peça diferente do anunciado, falsificada) paga frete de ida e volta e a taxa do serviço — Fase 6 |
 | RN27 | Texto escrito por usuário (nome, descrição, perguntas) nunca é tratado como instrução pela IA |
 | RN28 | Mensagens do pedido só abrem após a compra e só entre comprador e vendedor daquele pedido; telefone, e-mail e links são bloqueados até o pedido ser concluído |
@@ -143,7 +143,7 @@ Valores marcados como configuráveis são padrões que o admin pode alterar (at�
 | RNF01 | Segurança | Senhas com BCrypt; access token JWT de 15 min e refresh token de 7 dias, revogável no logout |
 | RNF02 | Segurança | Autorização por papel e por dono do recurso em todos os endpoints (prevenção de IDOR) |
 | RNF03 | Privacidade (LGPD) | CPF guardado criptografado, com hash separado para unicidade; aceite dos termos registrado com data e versão |
-| RNF04 | Consistência | Valores monetários em centavos (`long`), nunca `double` |
+| RNF04 | Consistência | Valores monetários em `BigDecimal` com 2 casas e arredondamento explícito (`HALF_EVEN`), encapsulados no tipo `Dinheiro`; no banco, `NUMERIC(12,2)`; nunca `double` |
 | RNF05 | Consistência | Cobrança com chave de idempotência; transições de pedido com lock otimista (`@Version`) |
 | RNF06 | Concorrência | Dois compradores no mesmo item: só um reserva; o outro recebe erro claro |
 | RNF07 | Arquitetura | Monólito modular; fronteiras entre módulos verificadas por teste do Spring Modulith |
@@ -191,7 +191,7 @@ Na compra, `pedido` pergunta ao `anuncio` se o item está disponível e pede a c
 | `compatibilidade` | regras de compatibilidade entre peças | 4 |
 | `assistente` | montador com IA, importador de specs, tool calling, voz | 5 |
 | `moderacao` | disputas, denúncias, filas de aprovação | 6 |
-| `compartilhado` | `Money`, erros padrão, configurações | 0 |
+| `compartilhado` | `Dinheiro`, erros padrão, configurações | 0 |
 
 | Camada | Tecnologia |
 | --- | --- |
@@ -253,14 +253,14 @@ Cada módulo é dono das próprias tabelas; entre módulos, a referência é só
 | `atributo_categoria` | catalogo | id, categoria_id, chave, tipo, unidade, obrigatorio, filtravel, valores_permitidos, minimo, maximo |
 | `produto` | catalogo | id, categoria_id, marca, nome, modelo, part_number, chave_normalizada, specs (JSONB), status, fonte_url, sugerido_por |
 | `produto_revisao` | catalogo | id, produto_id, specs_antes, specs_depois, autor_id, motivo, criado_em |
-| `anuncio` | anuncio | id, vendedor_id, produto_id, condicao, itens_inclusos, tem_nota_fiscal, garantia_ate, preco_centavos, quantidade, quantidade_disponivel, descricao, cep, cidade, bairro, uf, status |
+| `anuncio` | anuncio | id, vendedor_id, produto_id, condicao, itens_inclusos, tem_nota_fiscal, garantia_ate, preco, quantidade, quantidade_disponivel, descricao, cep, cidade, bairro, uf, status |
 | `foto_anuncio` | anuncio | id, anuncio_id, chave_objeto (MinIO), ordem |
 | `pergunta_anuncio` | anuncio | id, anuncio_id, autor_id, pergunta, resposta, criado_em, respondido_em |
-| `pedido` | pedido | id, anuncio_id, comprador_id, vendedor_id, valor_centavos, modalidade, estado, codigo_cifrado, tentativas_codigo, expira_em, version |
+| `pedido` | pedido | id, anuncio_id, comprador_id, vendedor_id, valor, modalidade, estado, codigo_cifrado, tentativas_codigo, expira_em, version |
 | `historico_pedido` | pedido | id, pedido_id, de, para, autor, motivo, criado_em |
 | `mensagem_pedido` | pedido | id, pedido_id, autor_id, texto, criado_em, lida |
-| `cobranca` | pagamento | id, pedido_id, metodo (PIX/CARTAO), valor_centavos, status, chave_idempotencia (única), id_gateway |
-| `lancamento_ledger` | pagamento | id, cobranca_id, tipo (RETIDO/LIBERADO/ESTORNADO), valor_centavos, comissao_centavos, criado_em |
+| `cobranca` | pagamento | id, pedido_id, metodo (PIX/CARTAO), valor, status, chave_idempotencia (única), id_gateway |
+| `lancamento_ledger` | pagamento | id, cobranca_id, tipo (RETIDO/LIBERADO/ESTORNADO), valor, comissao, criado_em |
 | `notificacao` | notificacao | id, usuario_id, tipo, titulo, mensagem, lida, criado_em |
 | `configuracao` | compartilhado | chave, valor, atualizado_por, atualizado_em |
 
@@ -296,7 +296,7 @@ Cada fase está pronta quando todos os seus itens passam. Fases 0 e 1 são verif
 - [ ] PF publica anúncio de peça usada com fotos
 - [ ] Comprador encontra o anúncio filtrando por specs e cidade
 - [ ] Compra → pagamento simulado aprovado → código exibido ao comprador → comprador e vendedor combinam pelas mensagens → vendedor digita → pedido `CONCLUIDO`
-- [ ] Ledger mostra RETIDO e depois LIBERADO, com comissão de 14%; anúncio fica `VENDIDO`
+- [ ] Ledger mostra RETIDO e depois LIBERADO, com comissão de 12%; anúncio fica `VENDIDO`
 
 **Fase 1 — exceções**
 
@@ -344,13 +344,15 @@ O Droper aplica o mesmo modelo a tênis e streetwear no Brasil: marketplace com 
 | Verificação | Anúncio revisado em até 3 dias úteis; Compra PRO com inspeção física e lacre com QR code | Produto do catálogo revisado; prova de teste (Fase 6) |
 | Entrega | Correios com etiqueta automática; Express no mesmo dia | Retirada em mãos regional (MVP); Correios na Fase 6 |
 | Liberação ao vendedor | Após confirmação do comprador ou 7 dias após a entrega; saldo em 1 a 3 dias | Código de confirmação na retirada; 7 dias após entrega no envio |
-| Taxa | De 16% a 10%, caindo com o histórico de vendas | 14% caindo até 10% com o histórico de vendas (14% fixo no MVP, a validar no beta) |
+| Taxa | De 16% a 10%, caindo com o histórico de vendas | 12% caindo até 10% com o histórico de vendas (12% fixo no MVP, a validar no beta) |
 | Vendedor verificado | 60+ avaliações, nota ≥ 4,8, documentos e bom histórico | Loja via CNPJ; PF nível 2 com selfie (Fase 6) |
 | Diferencial próprio | Droper Full: armazena, fotografa e envia pelo vendedor | Montador de PC com IA sobre o catálogo |
 
 **Lições aplicadas:** reembolso rápido (estorno sai do ledger no mesmo evento do cancelamento), status do pedido sempre claro com prazos automáticos, taxa decrescente por reputação (Fase 6), penalidade para quem quebra regra (Fase 6), selo de vendedor por critério objetivo (Fase 6), proteção contra prompt injection nos campos de texto.
 
-**Diferença importante:** no Droper a taxa se paga com verificação e logística. Na retirada em mãos do Montaí, o argumento é segurança (sem dinheiro vivo, sem comprovante falso). Se 14% é aceitável nessa modalidade é uma hipótese a validar no beta, não uma certeza.
+**Por que 12%:** 16% (o topo do Droper) é alto para um produto que ninguém conhece ainda; 10% deixa pouca margem para crescer; 14% ainda arrisca afastar o vendedor na retirada em mãos, onde a OLX é de graça. 12% fica barato o suficiente para atrair e ainda dá retorno. Como a taxa é configurável, ela pode mudar depois do beta.
+
+**Diferença importante:** no Droper a taxa se paga com verificação e logística. Na retirada em mãos do Montaí, o argumento é segurança (sem dinheiro vivo, sem comprovante falso). Se 12% é aceitável nessa modalidade é uma hipótese a validar no beta, não uma certeza.
 
 ## Decisões, riscos e roadmap
 
@@ -372,7 +374,7 @@ O Droper aplica o mesmo modelo a tênis e streetwear no Brasil: marketplace com 
 | Escopo grande para uma pessoa | Fases fechadas; cada fase termina com release funcional |
 | Muito tempo sem nada visível | Front mínimo e deploy logo após o núcleo (Fase 2), antes de compatibilidade e IA |
 | Aprender vários conceitos novos ao mesmo tempo | Estudar cada conceito na tarefa em que ele aparece, com exercício isolado antes (`docs/montai-trilha-de-estudo.md`) |
-| Taxa de 14% afastar vendedor na retirada em mãos | Conversar com vendedores antes e durante o beta; argumento principal é segurança; taxa é configurável |
+| Taxa de 12% afastar vendedor na retirada em mãos | Conversar com vendedores antes e durante o beta; argumento principal é segurança; taxa é configurável |
 | Comprador e vendedor negociarem por fora depois da primeira venda | Bloqueio de contato antes da conclusão; valor real precisa vir de segurança e catálogo, não só de bloqueio |
 | Dados sensíveis (LGPD) | CPF cifrado, acesso restrito, aceite registrado |
 | Compra concorrente do mesmo item | Reserva de 10 min + lock no banco |
@@ -414,3 +416,5 @@ Depois do roadmap: expansão para periféricos, consoles e jogos — o catálogo
 | 2 | 24/11/2026 | Roadmap reordenado: front mínimo e deploy (nova Fase 2) e beta (Fase 3) antes de compatibilidade e IA; fases seguintes renumeradas (2→4, 3→5, 4→6, 5→7); versões viram v0.1 (Fases 0–1), v0.2 (Fase 2) e v0.3 (Fase 3); código de confirmação exibido pela API na Fase 1 e por e-mail na Fase 3; prazos de 5 e 7 dias movidos para a Fase 3; RF50 e RF51 (front), RNF15 (custo) e ADR-006 adicionados; riscos de produto e estimativa revisada |
 | 2.1 | 25/11/2026 | Revisão do Claude web: código de confirmação cifrado com AES (chave diferente da do CPF) em vez de hash, sempre visível ao comprador; RN16 ajustada; filtro por tipo de vendedor (RF21) e sugestão de conta de Loja (RN04) só a partir da Fase 3; aviso de ambiente de teste e cuidado com CPF real na Fase 2 |
 | 2.2 | 25/11/2026 | Módulos renomeados para português (identidade, catalogo, anuncio, pedido, pagamento, notificacao, compartilhado, compatibilidade, assistente, moderacao); convenção de idioma do código adicionada |
+| 2.3 | 25/11/2026 | Dinheiro passa de centavos em `long` para `BigDecimal` no tipo `Dinheiro` (RNF04); colunas monetárias sem o sufixo `_centavos` |
+| 2.4 | 25/11/2026 | Comissão padrão do MVP passa de 14% para 12% (RN19), com a justificativa; faixas da RN25 viram 12% / 11% / 10%; tipo de dinheiro renomeado para `Dinheiro` |

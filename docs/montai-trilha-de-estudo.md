@@ -53,7 +53,7 @@ Antes de começar a Fase 1, vale revisar a fundo o `@Transactional`: o que acont
 | B05 | Teste de fronteira do Modulith (`ApplicationModules.verify()`) | Novo | No lab do B01, ver o teste quebrar quando um módulo acessa o interno do outro |
 | B06 | springdoc-openapi | Já usei | — |
 | B07 | Value object (`Dinheiro` com `BigDecimal`), arredondamento (`RoundingMode`) e `ProblemDetail` do Spring | Parcial | Somar R$ 0,10 + R$ 0,20 com `double` e com `BigDecimal` para ver o erro de arredondamento; calcular 14% de R$ 10,01 |
-| B08 | Algoritmo do dígito verificador de CPF/CNPJ | Novo (lógica) | Resolver primeiro no papel com um CPF de exemplo e depois escrever os testes |
+| B08 | Juntado ao B09: `@CPF` pronto do Hibernate Validator (não reinventar o que já existe e é testado) | Já usei | — |
 | B09 | Cifrar vs. hashear: por que o CPF é cifrado e também tem hash | Novo | Cifrar e decifrar um texto com AES; comparar com o hash, que não volta. A mesma cifra é reaproveitada no B37 |
 | B11 | Envio de e-mail com Spring Mail + token com validade | Parcial | Mandar um e-mail que aparece no Mailpit |
 | B12 | Refresh token: por que dois tokens e por que guardar o hash | Novo | — (entender o fluxo antes; o código vem da base do SplitHome) |
